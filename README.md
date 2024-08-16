@@ -39,6 +39,8 @@ choose like below
 
 3. change font
 
+change layout.tsx and tailwind.config.ts
+
 ```tsx:layout.tsx
 import "@/styles/globals.css"
 import { Inter as FontSans } from "next/font/google" // changed
@@ -82,4 +84,36 @@ module.exports = {
     },
   },
 }
+```
+
+4. test
+
+add button component
+
+```sh
+npx shadcn-ui@latest add button
+```
+
+change page.tsx
+
+```tsx:page.tsx
+"use client";
+
+import React, { useState } from "react";
+import { Button } from "@/components/ui/button";
+
+export default function Home() {
+  const [count, setCount] = useState<number>(0);
+
+  return (
+    <div className="flex justify-center flex-col items-center">
+      <p className="p-24 text-3xl font-bold text-primary">HELLO WORLD</p>
+      <Button onClick={() => setCount((prev) => prev + 1)}>Clicked {count} times</Button>
+    </div>
+  );
+}
+```
+
+```sh
+npm run dev
 ```
