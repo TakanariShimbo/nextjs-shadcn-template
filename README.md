@@ -36,3 +36,50 @@ choose like below
 √ Which color would you like to use as base color? » Gray
 √ Would you like to use CSS variables for colors? ... yes
 ```
+
+3. change font
+
+```tsx:layout.tsx
+import "@/styles/globals.css"
+import { Inter as FontSans } from "next/font/google" // changed
+
+import { cn } from "@/lib/utils" // added
+
+const fontSans = FontSans({
+  subsets: ["latin"],
+  variable: "--font-sans",
+})  // changed
+
+export default function RootLayout({ children }: RootLayoutProps) {
+  return (
+    <html lang="en" suppressHydrationWarning>
+      <head />
+      <body
+        className={cn(
+          "min-h-screen bg-background font-sans antialiased",
+          fontSans.variable
+        )} // added
+      >
+        ...
+      </body>
+    </html>
+  )
+}
+```
+
+```ts:tailwind.config.ts
+const { fontFamily } = require("tailwindcss/defaultTheme")
+
+/** @type {import('tailwindcss').Config} */
+module.exports = {
+  darkMode: ["class"],
+  content: ["app/**/*.{ts,tsx}", "components/**/*.{ts,tsx}"],
+  theme: {
+    extend: {
+      fontFamily: {
+        sans: ["var(--font-sans)", ...fontFamily.sans],
+      },
+    },
+  },
+}
+```
